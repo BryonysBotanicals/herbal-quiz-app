@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Herbal Exam App v3</title>
+<style>
+body { font-family: Arial; padding: 15px; background:#f4f4f4;}
+button { padding:12px; margin:5px 0; width:100%; border:none; border-radius:8px; background:#4CAF50; color:white; font-size:16px;}
+.card { background:white; padding:15px; border-radius:10px; margin-bottom:15px;}
+</style>
+</head>
+<body>
+
+<h2>🌿 Herbal Exam App</h2>
+
+<div id="app"></div>
+
+<script>
+
+let baseQuestions = [
+
+{q:"Which herb is most specific for chronic venous insufficiency?", options:["Yarrow","Horse Chestnut","Nettle","Dandelion"], answer:[1]},
+{q:"Which herbs are anti-inflammatory?", options:["Nettle","Liquorice","Calendula","Hawthorn"], answer:[0,1,2]},
+{q:"Which constituent gives liquorice its sweet taste?", options:["Flavonoids","Glycyrrhizin","Tannins","Alkaloids"], answer:[1]},
+{q:"Which herbs are hypotensive?", options:["Hawthorn","Motherwort","Yarrow","All of these"], answer:[3]},
+{q:"Which herb contains phthalides?", options:["Celery","Dandelion","Nettle","Yarrow"], answer:[0]},
+{q:"Which herb is most associated with sedative effects?", options:["Valerian","Horse Chestnut","Calendula","Rosemary"], answer:[0]},
+{q:"Which herbs support liver function?", options:["Dandelion","Calendula","Liquorice","All of these"], answer:[3]},
+{q:"Liquorice can cause potassium loss", options:["True","False"], answer:[0]},
+{q:"Which herbs are BOTH diuretic and anti-inflammatory?", options:["Nettle","Dandelion leaf","Celery","All of these"], answer:[3]},
+{q:"Which herb contains hypericin?", options:["St John's Wort","Hawthorn","Nettle","Sage"], answer:[0]},
+{q:"Which herbs are useful for anxiety?", options:["Passionflower","Valerian","Motherwort","All of these"], answer:[3]},
+{q:"Which herb is best for palpitations linked to menopause?", options:["Rosemary","Motherwort","Yarrow","Calendula"], answer:[1]},
+{q:"Which herbs contain flavonoids?", options:["Hawthorn","Calendula","Nettle","All of these"], answer:[3]},
+{q:"Which herb is a cardiotonic?", options:["Hawthorn","Celery","Elecampane","Cramp Bark"], answer:[0]},
+{q:"Which herb contains β-glucans?", options:["Artist’s Conk","Valerian","Yarrow","Sage"], answer:[0]},
+{q:"Which herbs are useful for dysmenorrhoea?", options:["Cramp Bark","Motherwort","Valerian","All of these"], answer:[3]},
+{q:"Which herb is most associated with wound healing?", options:["Calendula","Hawthorn","Celery","Valerian"], answer:[0]},
+{q:"Which herbs are nervine?", options:["Motherwort","Sage","Rosemary","All of these"], answer:[3]},
+{q:"Which herb contains aescin?", options:["Horse Chestnut","Nettle","Dandelion","Celery"], answer:[0]},
+{q:"Which herbs are antimicrobial?", options:["Calendula","Sage","Elecampane","All of these"], answer:[3]}
+
+];
+
+let questions = [];
+for(let i=0;i<20;i++){ questions = questions.concat(baseQuestions); }
+
+let current = 0;
+let score = 0;
+
+function showQuestion(){
+let q = questions[current];
+let html = "<div class='card'><h3>Question "+(current+1)+"</h3><p>"+q.q+"</p>";
+
+q.options.forEach((opt,i)=>{
+html += `<button onclick="answer(${i})">${opt}</button>`;
+});
+
+html += "</div>";
+document.getElementById("app").innerHTML = html;
+}
+
+function answer(i){
+let q = questions[current];
+if(q.answer.includes(i)){ score++; }
+
+current++;
+if(current < questions.length){
+showQuestion();
+}else{
+document.getElementById("app").innerHTML =
+"<div class='card'><h2>Finished!</h2><p>Score: "+score+"/"+questions.length+"</p></div>";
+}
+}
+
+showQuestion();
+
+</script>
+
+</body>
+</html>
